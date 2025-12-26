@@ -7,15 +7,16 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
         
+        /* Smooth Zoom Transition */
         html { font-size: 16px; transition: font-size 0.2s ease; }
 
         body {
             margin: 0; padding: 0; 
-            min-height: 100vh; /* Full Height */
+            min-height: 100vh;
             font-family: 'Roboto', sans-serif;
             background-color: #f5f5f5;
             display: flex;
-            flex-direction: column; /* Vertical Layout */
+            flex-direction: column;
         }
 
         /* --- WATERMARK LOGO BACKGROUND --- */
@@ -35,12 +36,12 @@
         /* --- HEADER --- */
         ._header {
             background: white; 
-            position: relative; 
+            position: sticky; top: 0;
             height: 70px; 
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
             overflow: hidden; 
             z-index: 100;
-            flex-shrink: 0; /* Header shrink nahi hoga */
+            flex-shrink: 0;
         }
         
         .header-bg-lock {
@@ -69,7 +70,6 @@
         .header-left-logos { display: flex; gap: 8px; align-items: center; pointer-events: auto; }
         .header-right-ctrl { display: flex; gap: 10px; align-items: center; pointer-events: auto; }
 
-        /* Buttons Styling */
         .font-buttons { display: flex; align-items: center; }
         .mat-btn {
             background: #fff; color: rgba(0,0,0,.87);
@@ -98,16 +98,23 @@
         }
         ._navBar span { cursor: pointer; white-space: nowrap; }
 
-        /* --- MAIN CONTAINER (Adjusted to push Card Down) --- */
+        /* --- CENTER WRAPPER (Magic Fix) --- */
+        /* Yeh wrapper Card aur Footer ko group karke screen ke BEECH (Center) me rakhega */
+        .page-center-wrapper {
+            flex-grow: 1; /* Bachi hui jagah lega */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Vertically Center */
+            width: 100%;
+            padding-bottom: 20px; /* Thoda sa gap bottom me */
+        }
+
         .container { 
             display: flex; 
             justify-content: center; 
-            align-items: flex-end; /* This attaches content to bottom */
-            padding-top: 2rem;
-            padding-left: 10px; 
-            padding-right: 10px;
-            padding-bottom: 0; /* No Padding at bottom */
-            flex-grow: 1; /* Fills the empty space */
+            padding: 0 10px; 
+            width: 100%;
+            /* align-items: flex-end ko HATA diya hai */
         }
 
         .card {
@@ -117,7 +124,7 @@
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
             border-radius: 4px 4px 0 0; /* Bottom corners square */
             overflow: hidden;
-            margin-bottom: 0; /* Stick to footer */
+            margin-bottom: 0; /* Footer se chipakne ke liye */
         }
 
         table { width: 100%; border-collapse: collapse; }
@@ -137,8 +144,8 @@
         footer {
             background: radial-gradient(circle, #138f78 0, #234a7d 100%);
             color: white; padding: 20px 10px; text-align: center; border-top: 4px solid #ccc;
-            flex-shrink: 0;
-            z-index: 10;
+            width: 100%;
+            /* Footer ab page-center-wrapper ka hissa hai */
         }
         .gov-logos-container {
             display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
@@ -194,63 +201,66 @@
     <span>Home</span><span>About CRS</span><span>Circulars</span><span>FAQs</span><span>How To Apply</span>
 </div>
 
-<div class="container">
-    <div class="card">
-        <table>
-            <tbody>
-                <tr><td class="label">Registration Number</td><td id="reg_no">B202509110930001524</td></tr>
-                <tr><td class="label">NAME</td><td id="name">MOHD ADIL</td></tr>
-                <tr><td class="label">GENDER</td><td id="gender">Male / पुरुष</td></tr>
-                <tr><td class="label">DOB</td><td id="dob">02-09-2004</td></tr>
-                <tr><td class="label">Name Of Mother</td><td id="mother">MISKIN</td></tr>
-                <tr><td class="label">Name Of Father</td><td id="father">DILAVAR</td></tr>
-                <tr><td class="label">Place of Birth</td><td id="place">HAZARA, DATAGANJ, BUDAUN, UP</td></tr>
-                <tr><td class="label">Registration Date</td><td id="reg_date">10-08-2025</td></tr>
-                <tr><td class="label">Registration Unit Name</td><td id="unit_name">GRAMA PANCHAYAT HAZARA</td></tr>
-                <tr><td class="label">Registration Unit Code</td><td id="unit_code">11093</td></tr>
-            </tbody>
-        </table>
+<div class="page-center-wrapper">
+    
+    <div class="container">
+        <div class="card">
+            <table>
+                <tbody>
+                    <tr><td class="label">Registration Number</td><td id="reg_no">B202509110930001524</td></tr>
+                    <tr><td class="label">NAME</td><td id="name">MOHD ADIL</td></tr>
+                    <tr><td class="label">GENDER</td><td id="gender">Male / पुरुष</td></tr>
+                    <tr><td class="label">DOB</td><td id="dob">02-09-2004</td></tr>
+                    <tr><td class="label">Name Of Mother</td><td id="mother">MISKIN</td></tr>
+                    <tr><td class="label">Name Of Father</td><td id="father">DILAVAR</td></tr>
+                    <tr><td class="label">Place of Birth</td><td id="place">HAZARA, DATAGANJ, BUDAUN, UP</td></tr>
+                    <tr><td class="label">Registration Date</td><td id="reg_date">10-08-2025</td></tr>
+                    <tr><td class="label">Registration Unit Name</td><td id="unit_name">GRAMA PANCHAYAT HAZARA</td></tr>
+                    <tr><td class="label">Registration Unit Code</td><td id="unit_code">11093</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    <footer>
+        <div class="gov-logos-container">
+            <div class="logo-item"><img src="https://statequota.sikkim.gov.in/Content/img/GOI/client-5.png" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://dea.gov.in/files/government_logos/01-national-portal-of-india.jpg" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/PMO_India_Logo.svg/330px-PMO_India_Logo.svg.png" class="footer-logo" style="background:#000;"></div>
+            <div class="logo-item"><img src="https://woodpulp.co.in/front/images/Make_in_India.jpg" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://w7.pngwing.com/pngs/623/611/png-transparent-digital-india-government-of-india-logo-ministry-of-electronics-and-information-technology-india-text-trademark-logo.png" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://www.mygov.in/sites/all/themes/mygov/front_assets/images/logo.svg" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://www.copac.coop/wp-content/uploads/2024/10/IYC_2025_logo_Horizontal_E-w-tagline-1024x436.png" class="footer-logo"></div>
+        </div>
+
+        <ul class="footer-links-group">
+            <li><a href="#">Website Policy</a></li>
+            <li><a href="#">Mobile App Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Accessibility Statement</a></li>
+            <li><a href="#">Web Information Manager</a></li>
+        </ul>
+
+        <ul class="footer-links-group">
+            <li><a href="#">Feedback</a></li>
+            <li><a href="#">Sitemap</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Vacancies</a></li>
+            <li><a href="#">Product & Services</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Cancellation Policy</a></li>
+            <li><a href="#">Grievance Management Policy</a></li>
+        </ul>
+
+        <p class="footer-info-text">Last Updated: 30-01-2024 12:16:17</p>
+        <p class="footer-info-text">Website Developed & Maintained by Office of the Registrar General & Census Commissioner, India</p>
+
+        <div class="copyright-bar">
+            © 2025 - The Registrar General & Census Commissioner, India - <span id="clock">...</span>
+        </div>
+    </footer>
+
 </div>
-
-<footer>
-    <div class="gov-logos-container">
-        <div class="logo-item"><img src="https://statequota.sikkim.gov.in/Content/img/GOI/client-5.png" class="footer-logo"></div>
-        <div class="logo-item"><img src="https://dea.gov.in/files/government_logos/01-national-portal-of-india.jpg" class="footer-logo"></div>
-        <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/PMO_India_Logo.svg/330px-PMO_India_Logo.svg.png" class="footer-logo" style="background:#000;"></div>
-        <div class="logo-item"><img src="https://woodpulp.co.in/front/images/Make_in_India.jpg" class="footer-logo"></div>
-        <div class="logo-item"><img src="https://w7.pngwing.com/pngs/623/611/png-transparent-digital-india-government-of-india-logo-ministry-of-electronics-and-information-technology-india-text-trademark-logo.png" class="footer-logo"></div>
-        <div class="logo-item"><img src="https://www.mygov.in/sites/all/themes/mygov/front_assets/images/logo.svg" class="footer-logo"></div>
-        <div class="logo-item"><img src="https://www.copac.coop/wp-content/uploads/2024/10/IYC_2025_logo_Horizontal_E-w-tagline-1024x436.png" class="footer-logo"></div>
-    </div>
-
-    <ul class="footer-links-group">
-        <li><a href="#">Website Policy</a></li>
-        <li><a href="#">Mobile App Privacy Policy</a></li>
-        <li><a href="#">Terms & Conditions</a></li>
-        <li><a href="#">Accessibility Statement</a></li>
-        <li><a href="#">Web Information Manager</a></li>
-    </ul>
-
-    <ul class="footer-links-group">
-        <li><a href="#">Feedback</a></li>
-        <li><a href="#">Sitemap</a></li>
-        <li><a href="#">Contact Us</a></li>
-        <li><a href="#">Vacancies</a></li>
-        <li><a href="#">Product & Services</a></li>
-        <li><a href="#">Pricing</a></li>
-        <li><a href="#">Cancellation Policy</a></li>
-        <li><a href="#">Grievance Management Policy</a></li>
-    </ul>
-
-    <p class="footer-info-text">Last Updated: 30-01-2024 12:16:17</p>
-    <p class="footer-info-text">Website Developed & Maintained by Office of the Registrar General & Census Commissioner, India</p>
-
-    <div class="copyright-bar">
-        © 2025 - The Registrar General & Census Commissioner, India - <span id="clock">...</span>
-    </div>
-</footer>
-
 <script>
     /* --- CLOCK --- */
     function updateClock() {
