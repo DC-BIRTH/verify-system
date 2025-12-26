@@ -16,7 +16,7 @@
             background-color: #f5f5f5;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden; /* Page left-right nahi hilega */
+            overflow-x: hidden;
             width: 100%;
         }
 
@@ -34,17 +34,16 @@
             filter: blur(0.5px);
         }
 
-        /* --- HEADER (PATTHAR KI LAKEER - FIXED) --- */
+        /* --- HEADER (FIXED) --- */
         ._header {
             background: white; 
-            /* Fixed positioning: Scroll karne par hilega nahi */
             position: fixed; 
             top: 0; left: 0;
             width: 100%;
             height: 70px; 
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
             overflow: hidden; 
-            z-index: 1001; /* Sabse upar */
+            z-index: 1001; 
         }
         
         .header-bg-lock {
@@ -90,17 +89,15 @@
             box-shadow: 0 2px 2px rgba(0,0,0,.15);
         }
 
-        /* --- NAVBAR (BLUE PATTI - ALSO FIXED) --- */
+        /* --- NAVBAR (FIXED) --- */
         ._navBar {
             background-color: #234a7d; color: white; padding: 8px 10px;
             display: flex; align-items: center; justify-content: center;
             flex-wrap: wrap; gap: 15px; 
             font-size: 0.85rem; font-weight: 500; 
             text-align: center;
-            
-            /* Fixing Navbar right below Header */
             position: fixed; 
-            top: 70px; /* Header ki height ke barabar neeche */
+            top: 70px; 
             left: 0;
             width: 100%;
             z-index: 1000;
@@ -114,8 +111,6 @@
             flex-direction: column;
             justify-content: flex-end; 
             width: 100%;
-            
-            /* IMPORTANT: Content ko neeche dhakelo taaki fixed header ke peeche na chupe */
             padding-top: 130px; 
         }
 
@@ -137,7 +132,6 @@
             margin-bottom: 0;
         }
 
-        /* Table Scroll logic remains same */
         .table-scroll-container {
             width: 100%;
             overflow-x: auto; 
@@ -176,15 +170,13 @@
         .footer-info-text { font-size: 0.65rem; margin: 5px 0; opacity: 0.8; }
         .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
 
-        /* --- MOBILE ADJUSTMENTS --- */
+        /* --- MOBILE ADJUSTMENTS (Right Shift Here) --- */
         @media screen and (max-width: 800px) {
             
-            /* Fixed Header Height Changes on Mobile */
-            ._header { height: 60px; } /* Mobile par header chhota */
+            ._header { height: 60px; }
             
-            /* Navbar ko Mobile Header ke hisaab se upar shift karo */
             ._navBar { 
-                top: 60px; /* 70px se 60px kiya */
+                top: 60px; 
                 height: auto; 
                 padding: 10px 5px; 
                 gap: 10px; 
@@ -198,12 +190,18 @@
 
             .page-center-wrapper {
                 justify-content: flex-start; 
-                /* Mobile par content aur neeche se shuru hoga kyunki Navbar mota ho sakta hai */
                 padding-top: 160px; 
                 padding-bottom: 50px; 
             }
 
-            .container { flex-grow: 0; margin-bottom: 0; }
+            /* --- MAGIC FIX FOR RIGHT SHIFT --- */
+            .container { 
+                flex-grow: 0; 
+                margin-bottom: 0;
+                /* Left padding badha di, Right kam kar di */
+                padding: 0 5px 0 15px; /* Isse card 10px Right khisak jayega */
+            }
+
             .card { border-radius: 4px 4px 0 0; margin-bottom: 0; }
             .font-buttons { display: none; } 
             
