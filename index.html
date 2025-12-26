@@ -97,14 +97,15 @@
         }
         ._navBar span { cursor: pointer; white-space: nowrap; }
 
-        /* --- DESKTOP LAYOUT (Default: Footer Bottom Sticky) --- */
+        /* --- LAYOUT WRAPPER --- */
         .page-center-wrapper {
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Desktop par Footer Bottom par rahega */
+            /* Desktop par content bottom ki taraf biased rahega (Zoom out fix) */
+            justify-content: flex-end; 
             width: 100%;
-            padding-top: 30px;
+            padding-top: 20px;
         }
 
         .container { 
@@ -155,34 +156,21 @@
         .footer-info-text { font-size: 0.65rem; margin: 5px 0; opacity: 0.8; }
         .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
 
-        /* --- MOBILE FIX (Updated for Perfect Flow) --- */
+        /* --- MOBILE FIX (Push Up From Bottom) --- */
         @media screen and (max-width: 800px) {
             
-            /* Body ko scrollable banao */
-            body { height: auto; }
-
             .page-center-wrapper {
-                /* IMPORTANT: Mobile par 'Center' ya 'Bottom' nahi, 'Start' hoga */
-                justify-content: flex-start; 
-                padding-top: 20px; /* Card ke upar thoda gap */
+                /* Content ko Bottom par rakho */
+                justify-content: flex-end; 
+                
+                /* LEKIN, Neeche se 50px ka dhakka (push) do */
+                padding-bottom: 50px; 
             }
 
+            /* Container settings */
             .container {
-                /* IMPORTANT: 'flex-grow' hata diya taaki card footer ko dhakka na maare */
                 flex-grow: 0; 
-                align-items: flex-start;
-                margin-bottom: 0; /* Chipakne ke liye */
-            }
-
-            .card {
-                /* Mobile par bhi corners sharp rakho neeche se */
-                border-radius: 4px 4px 0 0;
                 margin-bottom: 0;
-            }
-
-            footer {
-                /* Footer turant card ke baad aayega */
-                margin-top: 0;
             }
 
             ._header { height: 60px; }
