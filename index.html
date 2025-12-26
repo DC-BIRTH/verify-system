@@ -16,6 +16,8 @@
             background-color: #f5f5f5;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden; /* Page left-right nahi hilega */
+            width: 100%;
         }
 
         /* --- WATERMARK --- */
@@ -32,15 +34,17 @@
             filter: blur(0.5px);
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (PATTHAR KI LAKEER - FIXED) --- */
         ._header {
             background: white; 
-            position: sticky; top: 0;
+            /* Fixed positioning: Scroll karne par hilega nahi */
+            position: fixed; 
+            top: 0; left: 0;
+            width: 100%;
             height: 70px; 
             box-shadow: 0 2px 4px rgba(0,0,0,.1);
             overflow: hidden; 
-            z-index: 100;
-            flex-shrink: 0;
+            z-index: 1001; /* Sabse upar */
         }
         
         .header-bg-lock {
@@ -86,25 +90,33 @@
             box-shadow: 0 2px 2px rgba(0,0,0,.15);
         }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR (BLUE PATTI - ALSO FIXED) --- */
         ._navBar {
             background-color: #234a7d; color: white; padding: 8px 10px;
             display: flex; align-items: center; justify-content: center;
             flex-wrap: wrap; gap: 15px; 
             font-size: 0.85rem; font-weight: 500; 
-            position: relative; z-index: 90; text-align: center;
-            flex-shrink: 0;
+            text-align: center;
+            
+            /* Fixing Navbar right below Header */
+            position: fixed; 
+            top: 70px; /* Header ki height ke barabar neeche */
+            left: 0;
+            width: 100%;
+            z-index: 1000;
         }
         ._navBar span { cursor: pointer; white-space: nowrap; }
 
-        /* --- DESKTOP LAYOUT --- */
+        /* --- LAYOUT WRAPPER --- */
         .page-center-wrapper {
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
             justify-content: flex-end; 
             width: 100%;
-            padding-top: 30px;
+            
+            /* IMPORTANT: Content ko neeche dhakelo taaki fixed header ke peeche na chupe */
+            padding-top: 130px; 
         }
 
         .container { 
@@ -112,6 +124,7 @@
             justify-content: center; 
             padding: 0 10px; 
             width: 100%;
+            box-sizing: border-box;
         }
 
         .card {
@@ -124,11 +137,19 @@
             margin-bottom: 0;
         }
 
-        table { width: 100%; border-collapse: collapse; }
+        /* Table Scroll logic remains same */
+        .table-scroll-container {
+            width: 100%;
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 300px; }
         td { 
             border: 1px solid #e0e0e0; 
             padding: 0.8rem 1rem; 
             font-size: 0.9rem; color: #333; 
+            white-space: normal; word-break: break-word; 
         }
         .label { 
             background-color: #f9f9f9; 
@@ -158,36 +179,34 @@
         /* --- MOBILE ADJUSTMENTS --- */
         @media screen and (max-width: 800px) {
             
-            /* HEADER TWEAK: Zara sa Right Shift */
+            /* Fixed Header Height Changes on Mobile */
+            ._header { height: 60px; } /* Mobile par header chhota */
+            
+            /* Navbar ko Mobile Header ke hisaab se upar shift karo */
+            ._navBar { 
+                top: 60px; /* 70px se 60px kiya */
+                height: auto; 
+                padding: 10px 5px; 
+                gap: 10px; 
+                line-height: 1.5; 
+            }
+
             .logos-overlay {
-                padding-left: 20px; /* Pehle 15px tha, ab 20px kar diya */
+                padding-left: 20px; 
+                justify-content: space-between;
             }
 
             .page-center-wrapper {
                 justify-content: flex-start; 
-                padding-top: 20px;
+                /* Mobile par content aur neeche se shuru hoga kyunki Navbar mota ho sakta hai */
+                padding-top: 160px; 
+                padding-bottom: 50px; 
             }
 
-            .container {
-                flex-grow: 0; 
-                align-items: flex-start;
-                margin-bottom: 0;
-            }
-
-            .card {
-                border-radius: 4px 4px 0 0;
-                margin-bottom: 0;
-            }
-
-            footer {
-                margin-top: 0;
-            }
-
-            ._header { height: 60px; }
-            /* .logos-overlay ka justify-content same rahega */
-            .logos-overlay { justify-content: space-between; } 
+            .container { flex-grow: 0; margin-bottom: 0; }
+            .card { border-radius: 4px 4px 0 0; margin-bottom: 0; }
             .font-buttons { display: none; } 
-            ._navBar { height: auto; padding: 10px 5px; gap: 10px; line-height: 1.5; }
+            
             td { padding: 10px; font-size: 0.8rem; }
             .label { font-size: 0.7rem; width: 40%; }
         }
@@ -229,20 +248,22 @@
 <div class="page-center-wrapper">
     <div class="container">
         <div class="card">
-            <table>
-                <tbody>
-                    <tr><td class="label">Registration Number</td><td id="reg_no">B202509110930001524</td></tr>
-                    <tr><td class="label">NAME</td><td id="name">MOHD ADIL</td></tr>
-                    <tr><td class="label">GENDER</td><td id="gender">Male / पुरुष</td></tr>
-                    <tr><td class="label">DOB</td><td id="dob">02-09-2004</td></tr>
-                    <tr><td class="label">Name Of Mother</td><td id="mother">MISKIN</td></tr>
-                    <tr><td class="label">Name Of Father</td><td id="father">DILAVAR</td></tr>
-                    <tr><td class="label">Place of Birth</td><td id="place">HAZARA, DATAGANJ, BUDAUN, UP</td></tr>
-                    <tr><td class="label">Registration Date</td><td id="reg_date">10-08-2025</td></tr>
-                    <tr><td class="label">Registration Unit Name</td><td id="unit_name">GRAMA PANCHAYAT HAZARA</td></tr>
-                    <tr><td class="label">Registration Unit Code</td><td id="unit_code">11093</td></tr>
-                </tbody>
-            </table>
+            <div class="table-scroll-container">
+                <table>
+                    <tbody>
+                        <tr><td class="label">Registration Number</td><td id="reg_no">B202509110930001524</td></tr>
+                        <tr><td class="label">NAME</td><td id="name">MOHD ADIL</td></tr>
+                        <tr><td class="label">GENDER</td><td id="gender">Male / पुरुष</td></tr>
+                        <tr><td class="label">DOB</td><td id="dob">02-09-2004</td></tr>
+                        <tr><td class="label">Name Of Mother</td><td id="mother">MISKIN</td></tr>
+                        <tr><td class="label">Name Of Father</td><td id="father">DILAVAR</td></tr>
+                        <tr><td class="label">Place of Birth</td><td id="place">HAZARA, DATAGANJ, BUDAUN, UP</td></tr>
+                        <tr><td class="label">Registration Date</td><td id="reg_date">10-08-2025</td></tr>
+                        <tr><td class="label">Registration Unit Name</td><td id="unit_name">GRAMA PANCHAYAT HAZARA</td></tr>
+                        <tr><td class="label">Registration Unit Code</td><td id="unit_code">11093</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -313,4 +334,3 @@
 </script>
 </body>
 </html>
-
