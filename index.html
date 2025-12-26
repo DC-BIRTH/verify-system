@@ -97,17 +97,14 @@
         }
         ._navBar span { cursor: pointer; white-space: nowrap; }
 
-        /* --- NEW LAYOUT LOGIC (Sticky Footer) --- */
+        /* --- DESKTOP LAYOUT (Default: Footer Bottom Sticky) --- */
         .page-center-wrapper {
-            flex-grow: 1; /* Ye bachi hui jagah lega */
+            flex-grow: 1; 
             display: flex;
             flex-direction: column;
-            
-            /* IMPORTANT: Content ko BOTTOM ki taraf dhakelo */
-            justify-content: flex-end; 
-            
+            justify-content: flex-end; /* Desktop par Footer Bottom par rahega */
             width: 100%;
-            padding-top: 30px; /* Upar thoda gap */
+            padding-top: 30px;
         }
 
         .container { 
@@ -124,7 +121,7 @@
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
             border-radius: 4px 4px 0 0;
             overflow: hidden;
-            margin-bottom: 0; /* Footer se chipka rahega */
+            margin-bottom: 0;
         }
 
         table { width: 100%; border-collapse: collapse; }
@@ -158,18 +155,34 @@
         .footer-info-text { font-size: 0.65rem; margin: 5px 0; opacity: 0.8; }
         .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
 
-        /* --- MOBILE ADJUSTMENT --- */
+        /* --- MOBILE FIX (Updated for Perfect Flow) --- */
         @media screen and (max-width: 800px) {
-            .page-center-wrapper {
-                /* Mobile par content Top se shuru hoga, Bottom se nahi */
-                justify-content: flex-start; 
-                padding-bottom: 0; 
-            }
             
-            /* Card aur footer ke beech gap na aaye isliye */
+            /* Body ko scrollable banao */
+            body { height: auto; }
+
+            .page-center-wrapper {
+                /* IMPORTANT: Mobile par 'Center' ya 'Bottom' nahi, 'Start' hoga */
+                justify-content: flex-start; 
+                padding-top: 20px; /* Card ke upar thoda gap */
+            }
+
             .container {
-                flex-grow: 1; /* Container ko failne do */
-                align-items: flex-end; /* Card ko bottom par rakho */
+                /* IMPORTANT: 'flex-grow' hata diya taaki card footer ko dhakka na maare */
+                flex-grow: 0; 
+                align-items: flex-start;
+                margin-bottom: 0; /* Chipakne ke liye */
+            }
+
+            .card {
+                /* Mobile par bhi corners sharp rakho neeche se */
+                border-radius: 4px 4px 0 0;
+                margin-bottom: 0;
+            }
+
+            footer {
+                /* Footer turant card ke baad aayega */
+                margin-top: 0;
             }
 
             ._header { height: 60px; }
