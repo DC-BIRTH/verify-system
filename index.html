@@ -16,6 +16,9 @@
             background-color: #f5f5f5;
             display: flex;
             flex-direction: column;
+            /* FIX: Ye page ko left-right hilne se rokega */
+            overflow-x: hidden; 
+            width: 100%;
         }
 
         /* --- WATERMARK --- */
@@ -41,6 +44,7 @@
             overflow: hidden; 
             z-index: 100;
             flex-shrink: 0;
+            width: 100vw; /* Header ko screen width par force karega */
         }
         
         .header-bg-lock {
@@ -94,17 +98,18 @@
             font-size: 0.85rem; font-weight: 500; 
             position: relative; z-index: 90; text-align: center;
             flex-shrink: 0;
+            width: 100vw; /* Navbar ko bhi fix rakhega */
         }
         ._navBar span { cursor: pointer; white-space: nowrap; }
 
-        /* --- DESKTOP LAYOUT --- */
+        /* --- LAYOUT WRAPPER --- */
         .page-center-wrapper {
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
             justify-content: flex-end; 
             width: 100%;
-            padding-top: 30px;
+            padding-top: 20px;
         }
 
         .container { 
@@ -112,6 +117,7 @@
             justify-content: center; 
             padding: 0 10px; 
             width: 100%;
+            box-sizing: border-box; /* Padding ko width me include karega */
         }
 
         .card {
@@ -124,11 +130,25 @@
             margin-bottom: 0;
         }
 
-        table { width: 100%; border-collapse: collapse; }
+        /* --- TABLE SCROLL FIX (MAGIC CODE) --- */
+        .table-scroll-container {
+            width: 100%;
+            overflow-x: auto; /* Sirf table scroll karega, page nahi */
+            -webkit-overflow-scrolling: touch; /* Smooth scroll mobile ke liye */
+        }
+
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            min-width: 300px; /* Table ko sikudne se bachayega */
+        }
+        
         td { 
             border: 1px solid #e0e0e0; 
             padding: 0.8rem 1rem; 
             font-size: 0.9rem; color: #333; 
+            white-space: normal; /* Text wrap hone dega */
+            word-break: break-word; /* Lambe shabdon ko todega */
         }
         .label { 
             background-color: #f9f9f9; 
@@ -155,22 +175,22 @@
         .footer-info-text { font-size: 0.65rem; margin: 5px 0; opacity: 0.8; }
         .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
 
-        /* --- MOBILE ADJUSTMENTS --- */
+        /* --- MOBILE --- */
         @media screen and (max-width: 800px) {
             
-            /* HEADER TWEAK: Zara sa Right Shift */
+            /* Logo Positioning (Right Shift) */
             .logos-overlay {
-                padding-left: 20px; /* Pehle 15px tha, ab 20px kar diya */
+                padding-left: 20px; 
+                justify-content: space-between;
             }
 
             .page-center-wrapper {
                 justify-content: flex-start; 
-                padding-top: 20px;
+                padding-bottom: 50px; 
             }
 
             .container {
                 flex-grow: 0; 
-                align-items: flex-start;
                 margin-bottom: 0;
             }
 
@@ -179,15 +199,11 @@
                 margin-bottom: 0;
             }
 
-            footer {
-                margin-top: 0;
-            }
-
             ._header { height: 60px; }
-            /* .logos-overlay ka justify-content same rahega */
-            .logos-overlay { justify-content: space-between; } 
             .font-buttons { display: none; } 
             ._navBar { height: auto; padding: 10px 5px; gap: 10px; line-height: 1.5; }
+            
+            /* Table padding adjust */
             td { padding: 10px; font-size: 0.8rem; }
             .label { font-size: 0.7rem; width: 40%; }
         }
@@ -229,20 +245,22 @@
 <div class="page-center-wrapper">
     <div class="container">
         <div class="card">
-            <table>
-                <tbody>
-                    <tr><td class="label">Registration Number</td><td id="reg_no">B202509110930001524</td></tr>
-                    <tr><td class="label">NAME</td><td id="name">MOHD ADIL</td></tr>
-                    <tr><td class="label">GENDER</td><td id="gender">Male / पुरुष</td></tr>
-                    <tr><td class="label">DOB</td><td id="dob">02-09-2004</td></tr>
-                    <tr><td class="label">Name Of Mother</td><td id="mother">MISKIN</td></tr>
-                    <tr><td class="label">Name Of Father</td><td id="father">DILAVAR</td></tr>
-                    <tr><td class="label">Place of Birth</td><td id="place">HAZARA, DATAGANJ, BUDAUN, UP</td></tr>
-                    <tr><td class="label">Registration Date</td><td id="reg_date">10-08-2025</td></tr>
-                    <tr><td class="label">Registration Unit Name</td><td id="unit_name">GRAMA PANCHAYAT HAZARA</td></tr>
-                    <tr><td class="label">Registration Unit Code</td><td id="unit_code">11093</td></tr>
-                </tbody>
-            </table>
+            <div class="table-scroll-container">
+                <table>
+                    <tbody>
+                        <tr><td class="label">Registration Number</td><td id="reg_no">B202509110930001524</td></tr>
+                        <tr><td class="label">NAME</td><td id="name">MOHD ADIL</td></tr>
+                        <tr><td class="label">GENDER</td><td id="gender">Male / पुरुष</td></tr>
+                        <tr><td class="label">DOB</td><td id="dob">02-09-2004</td></tr>
+                        <tr><td class="label">Name Of Mother</td><td id="mother">MISKIN</td></tr>
+                        <tr><td class="label">Name Of Father</td><td id="father">DILAVAR</td></tr>
+                        <tr><td class="label">Place of Birth</td><td id="place">HAZARA, DATAGANJ, BUDAUN, UP</td></tr>
+                        <tr><td class="label">Registration Date</td><td id="reg_date">10-08-2025</td></tr>
+                        <tr><td class="label">Registration Unit Name</td><td id="unit_name">GRAMA PANCHAYAT HAZARA</td></tr>
+                        <tr><td class="label">Registration Unit Code</td><td id="unit_code">11093</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
