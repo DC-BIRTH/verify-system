@@ -97,14 +97,17 @@
         }
         ._navBar span { cursor: pointer; white-space: nowrap; }
 
-        /* --- DESKTOP LAYOUT --- */
+        /* --- NEW LAYOUT LOGIC (Sticky Footer) --- */
         .page-center-wrapper {
-            flex-grow: 1; 
+            flex-grow: 1; /* Ye bachi hui jagah lega */
             display: flex;
             flex-direction: column;
+            
+            /* IMPORTANT: Content ko BOTTOM ki taraf dhakelo */
             justify-content: flex-end; 
+            
             width: 100%;
-            padding-top: 30px;
+            padding-top: 30px; /* Upar thoda gap */
         }
 
         .container { 
@@ -121,7 +124,7 @@
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
             border-radius: 4px 4px 0 0;
             overflow: hidden;
-            margin-bottom: 0;
+            margin-bottom: 0; /* Footer se chipka rahega */
         }
 
         table { width: 100%; border-collapse: collapse; }
@@ -155,36 +158,21 @@
         .footer-info-text { font-size: 0.65rem; margin: 5px 0; opacity: 0.8; }
         .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
 
-        /* --- MOBILE ADJUSTMENTS --- */
+        /* --- MOBILE ADJUSTMENT --- */
         @media screen and (max-width: 800px) {
-            
-            /* HEADER TWEAK: Zara sa Right Shift */
-            .logos-overlay {
-                padding-left: 20px; /* Pehle 15px tha, ab 20px kar diya */
-            }
-
             .page-center-wrapper {
+                /* Mobile par content Top se shuru hoga, Bottom se nahi */
                 justify-content: flex-start; 
-                padding-top: 20px;
+                padding-bottom: 0; 
             }
-
+            
+            /* Card aur footer ke beech gap na aaye isliye */
             .container {
-                flex-grow: 0; 
-                align-items: flex-start;
-                margin-bottom: 0;
-            }
-
-            .card {
-                border-radius: 4px 4px 0 0;
-                margin-bottom: 0;
-            }
-
-            footer {
-                margin-top: 0;
+                flex-grow: 1; /* Container ko failne do */
+                align-items: flex-end; /* Card ko bottom par rakho */
             }
 
             ._header { height: 60px; }
-            /* .logos-overlay ka justify-content same rahega */
             .logos-overlay { justify-content: space-between; } 
             .font-buttons { display: none; } 
             ._navBar { height: auto; padding: 10px 5px; gap: 10px; line-height: 1.5; }
