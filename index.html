@@ -97,15 +97,14 @@
         }
         ._navBar span { cursor: pointer; white-space: nowrap; }
 
-        /* --- LAYOUT WRAPPER --- */
+        /* --- DESKTOP LAYOUT --- */
         .page-center-wrapper {
             flex-grow: 1; 
             display: flex;
             flex-direction: column;
-            /* Desktop par content bottom ki taraf biased rahega (Zoom out fix) */
             justify-content: flex-end; 
             width: 100%;
-            padding-top: 20px;
+            padding-top: 30px;
         }
 
         .container { 
@@ -156,24 +155,36 @@
         .footer-info-text { font-size: 0.65rem; margin: 5px 0; opacity: 0.8; }
         .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
 
-        /* --- MOBILE FIX (Push Up From Bottom) --- */
+        /* --- MOBILE ADJUSTMENTS --- */
         @media screen and (max-width: 800px) {
             
-            .page-center-wrapper {
-                /* Content ko Bottom par rakho */
-                justify-content: flex-end; 
-                
-                /* LEKIN, Neeche se 50px ka dhakka (push) do */
-                padding-bottom: 50px; 
+            /* HEADER TWEAK: Zara sa Right Shift */
+            .logos-overlay {
+                padding-left: 20px; /* Pehle 15px tha, ab 20px kar diya */
             }
 
-            /* Container settings */
+            .page-center-wrapper {
+                justify-content: flex-start; 
+                padding-top: 20px;
+            }
+
             .container {
                 flex-grow: 0; 
+                align-items: flex-start;
                 margin-bottom: 0;
             }
 
+            .card {
+                border-radius: 4px 4px 0 0;
+                margin-bottom: 0;
+            }
+
+            footer {
+                margin-top: 0;
+            }
+
             ._header { height: 60px; }
+            /* .logos-overlay ka justify-content same rahega */
             .logos-overlay { justify-content: space-between; } 
             .font-buttons { display: none; } 
             ._navBar { height: auto; padding: 10px 5px; gap: 10px; line-height: 1.5; }
