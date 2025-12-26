@@ -170,7 +170,7 @@
         .footer-info-text { font-size: 0.65rem; margin: 5px 0; opacity: 0.8; }
         .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
 
-        /* --- MOBILE ADJUSTMENTS (Right Shift Here) --- */
+        /* --- MOBILE ADJUSTMENTS (Heavy Right Shift) --- */
         @media screen and (max-width: 800px) {
             
             ._header { height: 60px; }
@@ -194,12 +194,15 @@
                 padding-bottom: 50px; 
             }
 
-            /* --- MAGIC FIX FOR RIGHT SHIFT --- */
+            /* --- ZABARDASTI RIGHT SHIFT --- */
             .container { 
                 flex-grow: 0; 
                 margin-bottom: 0;
-                /* Left padding badha di, Right kam kar di */
-                padding: 0 5px 0 15px; /* Isse card 10px Right khisak jayega */
+                
+                /* Left mein bahut zyada jagah, Right mein kam */
+                /* Isse card 'Right' taraf dhakkela jayega */
+                padding-left: 35px; /* Pehle 15px tha */
+                padding-right: 5px; 
             }
 
             .card { border-radius: 4px 4px 0 0; margin-bottom: 0; }
