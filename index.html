@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Validate Certificate | Civil Registration System | Government of India</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        
+        html { font-size: 16px; transition: font-size 0.2s ease; }
+
+        body {
+            margin: 0; padding: 0; 
+            min-height: 100vh;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* --- WATERMARK --- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background-image: url('https://dc.crsorgi.gov.in/assets/logo/crs-logo.png');
+            background-repeat: repeat;
+            background-position: center;
+            background-size: 280px;
+            opacity: 0.05; 
+            filter: blur(0.5px);
+        }
+
+        /* --- HEADER (FIXED) --- */
+        ._header {
+            background: white; 
+            position: fixed; 
+            top: 0; left: 0;
+            width: 100%;
+            height: 70px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+            overflow: hidden; 
+            z-index: 1001; 
+        }
+        
+        .header-bg-lock {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1; pointer-events: none;
+        }
+
+        .flag-lock { flex: 1; height: 100%; object-fit: cover; opacity: 0.9; }
+        .flag-img-swapped { transform: scaleX(-1); }
+
+        .satyamev-lock {
+            width: 80px; background: white; 
+            display: flex; justify-content: center; align-items: center; 
+            height: 100%; z-index: 2;
+            padding: 0 10px; border-radius: 0 0 50px 50px; 
+        }
+        .satyamev-lock img { height: 45px; width: auto; }
+
+        .logos-overlay {
+            position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 15px; box-sizing: border-box; z-index: 5; pointer-events: none;
+        }
+
+        .header-left-logos { display: flex; gap: 8px; align-items: center; pointer-events: auto; }
+        .header-right-ctrl { display: flex; gap: 10px; align-items: center; pointer-events: auto; }
+
+        .font-buttons { display: flex; align-items: center; }
+        .mat-btn {
+            background: #fff; color: rgba(0,0,0,.87);
+            box-shadow: 0 2px 2px rgba(0,0,0,.15);
+            border: none; border-radius: 4px; cursor: pointer;
+            font-weight: 500; margin-right: 4px;
+            height: 28px !important; min-width: 28px !important;
+            display: inline-flex; justify-content: center; align-items: center;
+            font-size: 13px;
+        }
+        .login-btn { 
+            background-color: #234a7d; color: white; border: none; 
+            height: 32px; padding: 0 14px; border-radius: 4px; 
+            font-weight: 500; cursor: pointer; font-size: 13px;
+            box-shadow: 0 2px 2px rgba(0,0,0,.15);
+        }
+
+        /* --- NAVBAR (FIXED) --- */
+        ._navBar {
+            background-color: #234a7d; color: white; padding: 8px 10px;
+            display: flex; align-items: center; justify-content: center;
+            flex-wrap: wrap; gap: 15px; 
+            font-size: 0.85rem; font-weight: 500; 
+            text-align: center;
+            position: fixed; 
+            top: 70px; 
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        ._navBar span { cursor: pointer; white-space: nowrap; }
+
+        /* --- LAYOUT WRAPPER --- */
+        .page-center-wrapper {
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; 
+            width: 100%;
+            padding-top: 130px; 
+        }
+
+        .container { 
+            display: flex; 
+            justify-content: center; 
+            padding: 0 10px; 
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .card {
+            background: white; 
+            width: 100%; max-width: 650px;
+            border-top: 3px solid #3f51b5; 
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1); 
+            border-radius: 4px 4px 0 0;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .table-scroll-container {
+            width: 100%;
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        table { width: 100%; border-collapse: collapse; min-width: 300px; }
+        td { 
+            border: 1px solid #e0e0e0; 
+            padding: 0.8rem 1rem; 
+            font-size: 0.9rem; color: #333; 
+            white-space: normal; word-break: break-word; 
+        }
+        .label { 
+            background-color: #f9f9f9; 
+            font-weight: 600; width: 35%; 
+            color: #555; text-transform: uppercase; 
+            font-size: 0.75rem; 
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: radial-gradient(circle, #138f78 0, #234a7d 100%);
+            color: white; padding: 20px 10px; text-align: center; border-top: 4px solid #ccc;
+            width: 100%;
+            flex-shrink: 0;
+        }
+        .gov-logos-container {
+            display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
+        }
+        .footer-logo { height: 30px; width: auto; background: white; border-radius: 3px; padding: 3px 6px; }
+        .footer-links-group { list-style: none; padding: 0; margin: 8px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; }
+        .footer-links-group li { font-size: 0.7rem; }
+        .footer-links-group a { color: white; text-decoration: none; opacity: 0.9; }
+        .footer-links-group li:not(:last-child):after { content: "|"; margin-left: 8px; color: rgba(255,255,255,0.4); }
+        .footer-info-text { font-size: 0.65rem; margin: 5px 0; opacity: 0.8; }
+        .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
+
+        /* --- MOBILE ADJUSTMENTS --- */
+        @media screen and (max-width: 800px) {
+            ._header { height: 60px; }
+            ._navBar { top: 60px; height: auto; padding: 10px 5px; gap: 10px; line-height: 1.5; }
+            .logos-overlay { padding-left: 20px; justify-content: space-between; }
+            .page-center-wrapper { justify-content: flex-start; padding-top: 160px; padding-bottom: 50px; }
+            .container { padding-left: 34px; padding-right: 5px; }
+            .card { border-radius: 4px 4px 0 0; margin-bottom: 0; }
+            .font-buttons { display: none; } 
+            td { padding: 10px; font-size: 0.8rem; }
+            .label { font-size: 0.7rem; width: 40%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="_header">
+    <div class="header-bg-lock">
+        <img src="https://dc.crsorgi.gov.in/assets/images/flag.svg" class="flag-lock flag-img-swapped">
+        <div class="satyamev-lock">
+            <img src="https://img2.clipart-library.com/25/satyamev-jayate-logo-clipart/satyamev-jayate-logo-clipart-33.png">
+        </div>
+        <img src="https://dc.crsorgi.gov.in/assets/images/flag.svg" class="flag-lock">
+    </div>
+
+    <div class="logos-overlay">
+        <div class="header-left-logos">
+            <img src="https://dc.crsorgi.gov.in/assets/logo/crs-logo.png" style="height:30px; pointer-events: auto;">
+            <img src="https://dc.crsorgi.gov.in/assets/images/azadi_logo_light-min.png" style="height:35px; pointer-events: auto;">
+        </div>
+        <div class="header-right-ctrl">
+            <div class="font-buttons">
+                <button class="mat-btn" onclick="setZoom('out')">A<sup>-</sup></button>
+                <button class="mat-btn" onclick="setZoom('reset')">A</button>
+                <button class="mat-btn" onclick="setZoom('in')">A<sup>+</sup></button>
+            </div>
+            <span style="font-size:18px; cursor:pointer;" onclick="alert('Dark Mode')">🌙</span>
+            <button class="login-btn">Login ▾</button>
+        </div>
+    </div>
+</div>
+
+<div class="_navBar">
+    <span>Home</span><span>About CRS</span><span>Circulars</span><span>FAQs</span><span>How To Apply</span>
+</div>
+
+<div class="page-center-wrapper">
+    <div class="container">
+        <div class="card">
+            <div class="table-scroll-container">
+                <table>
+                    <tbody>
+                        <tr><td class="label">Registration Number</td><td id="reg_no">-</td></tr>
+                        <tr><td class="label">NAME</td><td id="name">-</td></tr>
+                        <tr><td class="label">GENDER</td><td id="gender">-</td></tr>
+                        <tr><td class="label">DOB</td><td id="dob">-</td></tr>
+                        <tr><td class="label">Name Of Mother</td><td id="mother">-</td></tr>
+                        <tr><td class="label">Name Of Father</td><td id="father">-</td></tr>
+                        <tr><td class="label">Place of Birth</td><td id="place">-</td></tr>
+                        <tr><td class="label">Registration Date</td><td id="reg_date">-</td></tr>
+                        <tr><td class="label">Registration Unit Name</td><td id="unit_name">-</td></tr>
+                        <tr><td class="label">Registration Unit Code</td><td id="unit_code">-</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="gov-logos-container">
+            <div class="logo-item"><img src="https://statequota.sikkim.gov.in/Content/img/GOI/client-5.png" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://dea.gov.in/files/government_logos/01-national-portal-of-india.jpg" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/PMO_India_Logo.svg/330px-PMO_India_Logo.svg.png" class="footer-logo" style="background:#000;"></div>
+            <div class="logo-item"><img src="https://woodpulp.co.in/front/images/Make_in_India.jpg" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://w7.pngwing.com/pngs/623/611/png-transparent-digital-india-government-of-india-logo-ministry-of-electronics-and-information-technology-india-text-trademark-logo.png" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://www.mygov.in/sites/all/themes/mygov/front_assets/images/logo.svg" class="footer-logo"></div>
+            <div class="logo-item"><img src="https://www.copac.coop/wp-content/uploads/2024/10/IYC_2025_logo_Horizontal_E-w-tagline-1024x436.png" class="footer-logo"></div>
+        </div>
+
+        <ul class="footer-links-group">
+            <li><a href="#">Website Policy</a></li>
+            <li><a href="#">Mobile App Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+            <li><a href="#">Accessibility Statement</a></li>
+            <li><a href="#">Web Information Manager</a></li>
+        </ul>
+
+        <p class="footer-info-text">Last Updated: 30-01-2024 12:16:17</p>
+        <p class="footer-info-text">Website Developed & Maintained by Office of the Registrar General & Census Commissioner, India</p>
+
+        <div class="copyright-bar">
+            © 2025 - The Registrar General & Census Commissioner, India - <span id="clock">...</span>
+        </div>
+    </footer>
+</div>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const options = { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true };
+        document.getElementById('clock').textContent = now.toLocaleString('en-US', options);
+    }
+    setInterval(updateClock, 1000);
+
+    // --- DATA FILLING LOGIC ---
+    const params = new URLSearchParams(window.location.search);
+    
+    // Mapping Generator names to your Table IDs
+    const mapping = {
+        'reg': 'reg_no',
+        'name': 'name',
+        'sex': 'gender',
+        'dob': 'dob',
+        'mom': 'mother',
+        'dad': 'father',
+        'pob': 'place',
+        'rdate': 'reg_date',
+        'unit': 'unit_name',
+        'ucode': 'unit_code'
+    };
+
+    Object.keys(mapping).forEach(key => {
+        const val = params.get(key);
+        if(val) {
+            document.getElementById(mapping[key]).innerText = decodeURIComponent(val.replace(/\+/g, ' '));
+        }
+    });
+
+    const sizes = ['14px', '16px', '18px'];
+    let currentIndex = 1; 
+
+    function setZoom(action) {
+        const html = document.documentElement;
+        if (action === 'in' && currentIndex < sizes.length - 1) currentIndex++;
+        else if (action === 'out' && currentIndex > 0) currentIndex--;
+        else if (action === 'reset') currentIndex = 1;
+        html.style.fontSize = sizes[currentIndex];
+    }
+</script>
+</body>
+</html>
