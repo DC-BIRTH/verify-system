@@ -91,7 +91,7 @@
 
         /* --- NAVBAR (FIXED) --- */
         ._navBar {
-            background-color: #234a7d; color: white; padding: 8px 10px;
+            background-color: #234a7d; color: white; padding: 15px 10px;
             display: flex; align-items: center; justify-content: center;
             flex-wrap: wrap; gap: 15px; 
             font-size: 0.85rem; font-weight: 500; 
@@ -111,7 +111,7 @@
             flex-direction: column;
             justify-content: flex-end; 
             width: 100%;
-            padding-top: 130px; 
+            padding-top: 140px; 
         }
 
         .container { 
@@ -145,9 +145,10 @@
             font-size: 0.9rem; color: #333; 
             white-space: normal; word-break: break-word; 
         }
+        /* YAHAN CHANGE KIYA HAI: WIDTH 30% taki naam ek line me aaye */
         .label { 
             background-color: #f9f9f9; 
-            font-weight: 600; width: 35%; 
+            font-weight: 600; width: 30%; 
             color: #555; text-transform: uppercase; 
             font-size: 0.75rem; 
         }
@@ -155,7 +156,10 @@
         /* --- FOOTER --- */
         footer {
             background: radial-gradient(circle, #138f78 0, #234a7d 100%);
-            color: white; padding: 20px 10px; text-align: center; border-top: 4px solid #ccc;
+            color: white; 
+            /* YAHAN CHANGE KIYA HAI: Padding bottom 80px kar diya */
+            padding: 20px 10px 80px 10px; 
+            text-align: center; border-top: 4px solid #ccc;
             width: 100%;
             flex-shrink: 0;
         }
@@ -171,16 +175,12 @@
         .copyright-bar { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; font-size: 0.65rem; opacity: 0.8; margin-top: 10px; }
 
         /* --- MOBILE ADJUSTMENTS --- */
-        @media screen and (max-width: 800px) {
-            ._header { height: 60px; }
-            ._navBar { top: 60px; height: auto; padding:10px 5px; gap: 10px; line-height: 1.5; }
-            .logos-overlay { padding-left: 20px; justify-content: space-between; }
-            .page-center-wrapper { justify-content: flex-start; padding-top: 160px; padding-bottom: 50px; }
-            .container { padding-left: 34px; padding-right: 5px; }
-            .card { border-radius: 4px 4px 0 0; margin-bottom: 0; }
-            .font-buttons { display: none; } 
-            td { padding: 10px; font-size: 0.8rem; }
-            .label { font-size: 0.7rem; width: 30%; }
+        @media screen and (max-width: 600px) {
+            ._header { height: 85px; }
+            ._navBar { top: 85px; font-size: 0.75rem; gap: 10px; }
+            .page-center-wrapper { padding-top: 180px; }
+            /* Mobile me bhi width 30% rahegi */
+            .label { width: 30%; }
         }
     </style>
 </head>
